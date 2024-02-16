@@ -64,7 +64,7 @@ class Cwa:
         _text = eval(_text)
         return _text
             
-    def get_country_mapping_code(self):
+    def get_country_mapping_code(self, exp):
         output = {}
         country_dict = self.get_country_info()
         town_info_dict = self.get_town_info()
@@ -76,29 +76,30 @@ class Cwa:
                 output[f'{country_name}{town_name}'] = town_id
         return output
     
-    def get_wheather_response(self, town_code):
+    def get_weather_response(self, code):
         output = []
         response = self.requests.get(
-            f'https://www.cwa.gov.tw/V8/C/W/Town/MOD/Week/{town_code}_Week_PC.html'
+            f'https://www.cwa.gov.tw/V8/C/W/Town/MOD/Week/{code}_Week_PC.html'
         )
         if response.status_code != 200:
             return None
         timezone = ['早上', '晚上']
         tree = etree.HTML(response.text)
         weekday = self.get_week_day(tree)
-        wheather = self.get_wheather(tree)
+        weather = self.get_weather(tree)
         high_temprature = self.get_high_temprature(tree)
         low_temprature = self.get_low_temprature(tree)
         rain_prob = self.get_rain_prob(tree)
         total_weeday = [f'{_weekday}{_time}' for _weekday in weekday for _time in timezone]
-        for week_day, _wheather, _high_temprature, _low_temprature, _rain_prob in zip(
-            total_weeday, wheather, high_temprature, low_temprature, rain_prob):
+        for week_day, _weather, _high_temprature, _low_temprature, _rain_prob in zip(
+            total_weeday, weather, high_temprature, low_temprature, rain_prob):
             output.append({
                 '時間': f'{week_day}',
-                '天氣': _wheather,
+                '天氣': _weather,
                 '最高溫度': _high_temprature,
                 '最低溫度': _low_temprature,
                 '降雨機率': _rain_prob
+                
             })
         df = pd.DataFrame(output)
         return df
@@ -108,9 +109,9 @@ class Cwa:
         _weekdays = [''.join(_weekday.xpath('.//text()')) for _weekday in _weekdays]
         return _weekdays
     
-    def get_wheather(self, tree):
-        _wheather = tree.xpath('//tbody/tr[2]//@title')
-        return _wheather
+    def get_weather(self, tree):
+        _weather = tree.xpath('//tbody/tr[2]//@title')
+        return _weather
             
     def get_high_temprature(self, tree):
         _high_temprature = tree.xpath('//tbody/tr[3]/td/span[1]/text()')
@@ -129,11 +130,12 @@ class Cwa:
         return word
     
     def main(self, country):
-        country = self.__transfer(country)
+        print(f'=================={country}==================')
+
         mapping_code_dict = self.get_country_mapping_code()
         town_code = mapping_code_dict.get(country)
         if town_code:
-            return self.get_wheather_response(town_code)
+            return self.get_weather_response(town_code)
         else:
             return f'{country}查無資料'
 
@@ -142,5 +144,5 @@ if __name__ == '__main__':
     obj = Cwa()
     # obj.get_country_info()
     # print(obj.get_town_info())
-    print(obj.get_wheather_response('6301000'))
+    print(obj.get_weather_response('6301000'))
     
