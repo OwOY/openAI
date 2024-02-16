@@ -46,6 +46,6 @@ agent = create_react_agent(
     llm=model,
     prompt=prompt,
 )
-agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
-response = agent_executor.invoke({"input": "請告訴我台北市新莊區今日天氣如何?"})
+agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=True, handle_parsing_errors=True)
+response = agent_executor.invoke({"input": "Please tell me what weather is in 貢寮區 this sunday?"})
 print(response)

@@ -6,13 +6,13 @@ Use the following format:
     Question: the input question you must answer
     Thought: First, I need to find the location's country code
     Action: To find the code, Use one of [{tool_names}]
-    Action Input: please find out the most like location in selection and the code
-    Observation: If I find the code, I can get the weather information; if not, I will try this again
+    Action Input: please find out the most like location in selection
+    Observation: If I find the code, just response code.And I can get the weather information; if not, I will try this again
     
     Thought: Second, I can use the country code to get the weather information
     Action: Use one of [{tool_names}]
     Action Input: the input to the action
-    Observation: I now know the final answer and i need to response the origin question
+    Observation: I now know the final answer and I need to think how to response the origin question
     Final Answer: the final answer to the original input question and use Traditional Chinese to answer
 
 Begin!
