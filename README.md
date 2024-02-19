@@ -36,9 +36,19 @@ model = AzureChatOpenAI(
     工具參數
    - [schema.py](src/agentTest/schema.py)  
 2. 創建文本  
-    讓Agent根據先前的思考進行行動，並從該行動的結果中獲得觀察，形成 **思考→行動→觀察** 的流程
-    [Thought]–>[Action]–>[Observation]
-   - [sample_prompt.txt](src/agentTest/prompt.txt)
+    - [sample_prompt.txt](src/agentTest/prompt.txt)  
+
+    讓Agent根據先前的思考進行行動，並從該行動的結果中獲得觀察，形成 **思考→行動→觀察** 的流程    
+    [Thought]–>[Action]–>[Observation]  
+
+    並遵循以下六大策略：  
+      1. 寫出清晰的指令  
+      2. 提供參考文本  
+      3. 將複雜的任務拆分為更簡單的子任務  
+      4. 給模型時間「思考」  
+      5. 使用外部工具  
+      6. 系統地測試變更  
+
 3. 執行主程式
    - [main.py](src/agentTest/main.py)
 
