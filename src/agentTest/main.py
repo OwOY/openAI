@@ -18,7 +18,7 @@ from crawler.cwa import Cwa
 cwa_obj = Cwa()
 
 model = AzureChatOpenAI(
-    temperature=0.9,   
+    temperature=0,   
     api_key=API_KEY,
     openai_api_version=OPENAI_API_VERSION,
     azure_deployment=AZURE_DEPLOYMENT,
@@ -53,7 +53,10 @@ agent_executor = AgentExecutor(
     agent=agent, 
     tools=tools, 
     verbose=True, 
-    handle_parsing_errors=True
+    handle_parsing_errors=True,
 )
-response = agent_executor.invoke({"input": "請問汐止區今天天氣如何?"})
+response = agent_executor.invoke(
+    {"input": "請問今天淡水區禮拜日的天氣如何?"}
+)
+
 print(response)

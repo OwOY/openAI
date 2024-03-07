@@ -4,16 +4,19 @@ Answer the following questions as best you can. You have access to the following
 
 Use the following format:
     Question: the input question you must answer
-    Thought: First, I need to find the location's country code
+
+    Thought: First, I need to find the location's country code, use tool and find the location
     Action: To find the code, Use one of [{tool_names}]
-    Action Input: please find out the most like location in selection
-    Observation: If I find the code, just response code.And I can get the weather information; if not, I will try this again
+    Action Input: the input to the action
+    Observation: the result of the action ... (this Thought/Action/Action Input/Observation can repeat N times)
     
-    Thought: Second, I can use the country code to get the weather information
+    Thought: Second, I got country code and I can use the country code to get the weather information
     Action: Use one of [{tool_names}]
     Action Input: the input to the action
-    Observation: I now know the final answer and I need to think how to response the origin question
-    Final Answer: the final answer to the original input question and use Traditional Chinese to answer
+    Observation: the result of the action ... (this Thought/Action/Action Input/Observation can repeat N times)
+    
+    Thought: I now know the weather information, and I can use this to answer the question
+    Final Answer: the final answer in Traditional Chinese to the original input question
 
 Begin!
 
