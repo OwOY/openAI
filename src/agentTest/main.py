@@ -25,19 +25,19 @@ model = AzureChatOpenAI(
     azure_endpoint=AZURE_ENDPOINT
 )
 
-template = read_file('prompt.txt')
+template = read_file('prompt2.txt')
 prompt = PromptTemplate.from_template(template)
 
 _from_tool = Tool.from_function
 
 tools = [
     _from_tool(
-        name = '取得城市代碼',
+        name = 'Get country code tool',
         description = 'Use this tool can find out the country code',
         func=cwa_obj.get_country_mapping_code,
     ), 
     _from_tool(
-        name = '取得天氣資訊',
+        name = 'Get weather tool',
         description = 'Use this tool can get the weather information',
         args_schema=InsertCountryCode,
         func=cwa_obj.get_weather_response,
@@ -56,7 +56,7 @@ agent_executor = AgentExecutor(
     handle_parsing_errors=True,
 )
 response = agent_executor.invoke(
-    {"input": "請問今天淡水區禮拜日的天氣如何?"}
+    {"input": "請問今天新莊區和大安區和三重區還有淡水區禮拜日早上的天氣如何?"}
 )
 
 print(response)
