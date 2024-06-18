@@ -1,29 +1,27 @@
-<img src='img/OpenAI_Logo_(2).svg.png'>
+<p align='center'>
+    <img src='img/OpenAI_Logo_(2).svg.png' width="300px">
+</p>
 
----
-<br>
-<br>
-<br>
 
-## How to use OpenAI
+# How to use OpenAI
 - AzureChatOpenAI  
-設定model參數
+    設定model參數
 
-```
-from langchain_openai import AzureChatOpenAI
-from dotenv import load_dotenv
+    ```python
+    from langchain_openai import AzureChatOpenAI
+    from dotenv import load_dotenv
 
-load_dotenv()
-get_env = os.getenv
+    load_dotenv()
+    get_env = os.getenv
 
-model = AzureChatOpenAI(
-    temperature=0.9,   
-    api_key=get_env('API_KEY'),
-    openai_api_version=get_env('OPENAI_API_VERSION'),
-    azure_deployment=get_env('AZURE_DEPLOYMENT'),
-    azure_endpoint=get_env('AZURE_ENDPOINT'),
-)
-```
+    model = AzureChatOpenAI(
+        temperature=0.9,   
+        api_key=get_env('API_KEY'),
+        openai_api_version=get_env('OPENAI_API_VERSION'),
+        azure_deployment=get_env('AZURE_DEPLOYMENT'),
+        azure_endpoint=get_env('AZURE_ENDPOINT'),
+    )
+    ```
 
 
 ### Agent
