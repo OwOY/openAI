@@ -102,24 +102,19 @@ python -m pip install langgraph
     from langchain_core.prompts import PromptTemplate
     from langchain_core.tools import ToolExecutor
 
-    def create_agent(tools, prompt):
+    def create_agent(state, tools, prompt):
+        messages = state['question']
         prompt = PromptTemplate(prompt)
         llm_bind_tool = llm.bind_tools(tools)
         chain = prompt | llm_bind_tool
-        return chain
-
-    def agent_node(state, agent):
-        messages = state['question']
-        response = agent.invoke(messages[-1])
+        response = chain.invoke(messages[-1])
         return response
 
     def create_node(state):
         node = functools.partial(
-            agent_node, 
-            agent=create_agent(
-                tools=[add],
-                prompt='you are a calculator. ...'
-            )
+            create_agent, 
+            tools=[add],
+            prompt='you are a calculator. ...'
         )
         return node
 
